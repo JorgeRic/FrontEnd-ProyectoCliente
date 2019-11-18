@@ -9,3 +9,23 @@ mutation crearCliente($input: ClienteInput){
     # emails
   }
 }`
+
+export const ACTUALIZAR_CLIENTE = gql`
+mutation actualizarCliente($input: ClienteInput){
+  actualizarCliente(input: $input){
+    id
+    nombre
+    apellido
+    edad
+    tipo
+    empresa
+    emails{
+      email
+    }
+  }
+}`
+
+export const ELIMINAR_CLIENTE = gql`
+mutation eliminarCliente($id: ID!){
+  eliminarCliente(id:$id)
+}`
