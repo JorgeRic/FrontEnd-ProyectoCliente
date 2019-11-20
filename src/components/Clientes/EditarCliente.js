@@ -5,11 +5,10 @@ import FormularioEditarCliente from './FormularioEditarCliente'
 
 class EditarCliente extends Component {
   state={
-    cliente: []
+
   }
   render() {
     const { id } = this.props.match.params;
-    console.log(id)
     return (
       <Fragment>
           <h2 className="text-center">Editar Cliente</h2>
@@ -22,7 +21,7 @@ class EditarCliente extends Component {
                 return(
                     <FormularioEditarCliente
                         cliente = {data.getCliente}
-                        refetch={refetch}
+                        refetch = {refetch}
                     />
                         ) 
                     }}
@@ -34,3 +33,4 @@ class EditarCliente extends Component {
   }
 }
 export default EditarCliente
+

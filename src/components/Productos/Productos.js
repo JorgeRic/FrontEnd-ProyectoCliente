@@ -4,14 +4,38 @@ import { Link } from 'react-router-dom'
 import { ELIMINAR_PRODUCTO } from'../../mutations';
 import { PRODUCTOS_QUERY } from '../../queries'
 import TodoOK from '../Alertas/TodoOK'
+import Paginador from '../Paginador'
+import { NoUnusedFragmentsRule } from 'graphql';
 
 class Productos extends Component {
+  limite = 5;
   state= {
+    paginador: {
+      offset: 0,
+      actual: 1
+    },
     alerta: {
       mostrar: false,
       mensaje: ''
 
     }
+  }
+  
+  paginaAnterior = () =>{
+    this.setState({
+      paginador: {
+        offset: this.state.paginador.offset - this.limite,
+        actual: this.state.paginador.actual - 1
+      }
+    })
+  }
+  paginaSiguiente = () =>{
+    this.setState({
+      paginador: {
+        offset: this.state.paginador.offset + this.limite,
+        actual: this.state.paginador.actual + 1
+      }
+    })
   }
   render() {
     const { alerta: {mostrar, mensaje} } = this.state;
@@ -20,12 +44,13 @@ class Productos extends Component {
       <Fragment>
         <h1 className="text-center mb-5">Productos</h1>
         {alerta}
-        <Query query={ PRODUCTOS_QUERY } pollInterval={500}>
+        <Query query={ PRODUCTOS_QUERY } pollInterval={500} variables={{limite: this.limite, offset: this.state.paginador.offset}}>
         {({ loading, error, data, startPolling, stopPolling }) =>{
             if(loading) return "Cargando..";
             if(error) return `Error: ${error.message}`;
             console.log(data)
             return(
+              <Fragment>
               <table className="table">
                 <thead>
                   <tr className="table-primary">
@@ -96,6 +121,14 @@ class Productos extends Component {
                   })}
                 </tbody>
               </table>
+              <Paginador
+                actual = {this.state.paginador.actual}
+                total={data.totalProductos}
+                limite = {this.limite}
+                paginaAnterior = {this.paginaAnterior}
+                paginaSiguiente = {this.paginaSiguiente}
+              />
+              </Fragment>
             )
           
           }}

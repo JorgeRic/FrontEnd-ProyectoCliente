@@ -14,6 +14,7 @@ export const CLIENTES_QUERY = gql`
 export const CLIENTE_QUERY = gql`
 query ConsultarCliente($id:ID){
   getCliente(id: $id){
+    id
     nombre
     apellido
     empresa
@@ -26,9 +27,19 @@ query ConsultarCliente($id:ID){
 }`
 
 export const PRODUCTOS_QUERY = gql `
-{
-  getProductos{
-    id
+query getProductos($limite: Int, $offset: Int){
+    getProductos(limite: $limite, offset: $offset){
+      id
+      nombre
+      precio
+      stock
+    }
+    totalProductos
+  }
+`
+export const GET_PRODUCTO = gql`
+query getProducto($id: ID!){
+  getProducto(id: $id){
     nombre
     precio
     stock

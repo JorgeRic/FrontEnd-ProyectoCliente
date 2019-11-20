@@ -1,27 +1,27 @@
 import React, { Component, Fragment } from 'react'
-import { PRODUCTO_QUERY } from '../../queries'
+import { GET_PRODUCTO } from '../../queries'
 import { Query } from 'react-apollo'
 import FormularioEditarProducto from './FormularioEditarProducto'
 
 
-class EditarProductos extends Component {
+class EditarProducto extends Component {
   state = {
   
   }
   render() {
+    const {id} = this.props.match.params
     return (
-      <div>
-        {/* <Fragment> */}
-          <h2 className="text-center">Editar Producto</h2>
-          {/* <div className="row justify-content-center"> */}
-            {/* <Query query={ PRODUCTO_QUERY } variables={{id}}>
+      <Fragment>
+        <h1 className="text-center">Editar Producto</h1>
+        <div className="row justify-content-center">
+            <Query query={ GET_PRODUCTO } variables={{id}}>
                 {({ loading, error, data, refetch }) => {
                 if(loading) return 'Cargando....';
-                if(error) return `Error: ${error.message}`
-                
+                if(error) return `Error: ${error.message}`     
                 return(
                     <FormularioEditarProducto
-                        producto = {data.getProducto}
+                        producto = {data}
+                        id={id}
                         refetch={refetch}
                     />
                         ) 
@@ -29,9 +29,8 @@ class EditarProductos extends Component {
                     
             </Query>
           </div>
-      </Fragment> */}
-      </div>
+      </Fragment>
     )
   }
 }
-export default EditarProductos
+export default EditarProducto

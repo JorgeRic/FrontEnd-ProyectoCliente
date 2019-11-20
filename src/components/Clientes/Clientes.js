@@ -43,7 +43,6 @@ class Clientes extends Component {
         {({ loading, error, data, startPolling, stopPolling }) =>{
           if(loading) return "Cargando..";
           if(error) return `Error: ${error.message}`;
-          console.log(data.getClientes)
 
           return(
             <Fragment>
@@ -60,6 +59,12 @@ class Clientes extends Component {
                           {cliente.empresa}
                         </div>
                         <div className="col-md-4 d-flex justify-content-end">
+                          <Link 
+                            to={`/pedidos/nuevo/${id}`}
+                            className="btn btn-warning d-block d-md-inline-block mr-2"
+                          >
+                            Nuevo Pedido
+                          </Link>
                           <Mutation 
                               mutation={ELIMINAR_CLIENTE}
                               onCompleted={(data) => {
@@ -98,7 +103,7 @@ class Clientes extends Component {
                             }
 
                           </Mutation>
-                          <Link to={`/cliente/editar/${cliente.id}`} className="btn btn-success d-block d-md-inline-block">
+                          <Link to={`/clientes/editar/${cliente.id}`} className="btn btn-success d-block d-md-inline-block">
                             Editar Cliente
                           </Link>
 
@@ -110,7 +115,7 @@ class Clientes extends Component {
               </ul>
               <Paginador
               actual = {this.state.paginador.actual}
-              totalClientes={data.totalClientes}
+              total={data.totalClientes}
               limite = {this.limite}
               paginaAnterior = {this.paginaAnterior}
               paginaSiguiente = {this.paginaSiguiente}
