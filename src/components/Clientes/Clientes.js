@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { Query, Mutation } from 'react-apollo'
-import { Link} from 'react-router-dom'
-import { CLIENTES_QUERY } from '../queries'
-import { ELIMINAR_CLIENTE } from '../mutations'
-import Paginador from './Paginador'
+import { Link } from 'react-router-dom'
+import { CLIENTES_QUERY } from '../../queries'
+import { ELIMINAR_CLIENTE } from '../../mutations'
+import Paginador from '../Paginador'
+import TodoOK from '../Alertas/TodoOK'
 
 class Clientes extends Component {
 
@@ -12,6 +13,10 @@ class Clientes extends Component {
     paginador: {
       offset: 0,
       actual: 1
+    },
+    alerta:{
+      mostrar: false,
+      mensaje: ''
     }
   }
   paginaAnterior = () =>{
@@ -31,8 +36,10 @@ class Clientes extends Component {
     })
   }
   render(){
+    const { alerta: {mostrar, mensaje} } = this.state;
+    const alerta = (mostrar) ? <TodoOK mensaje= {mensaje}/>: '';
     return(
-      <Query query={CLIENTES_QUERY} pollInterval={1000} variables={{limite: this.limite, offset: this.state.paginador.offset}}>
+      <Query query={CLIENTES_QUERY} pollInterval={500} variables={{limite: this.limite, offset: this.state.paginador.offset}}>
         {({ loading, error, data, startPolling, stopPolling }) =>{
           if(loading) return "Cargando..";
           if(error) return `Error: ${error.message}`;
@@ -41,6 +48,7 @@ class Clientes extends Component {
           return(
             <Fragment>
               <h2 className="text-center">Listado Clientes</h2>
+              {alerta}
               <ul className="list-group mt-4">
                 {data.getClientes.map((cliente)=>{
                   const { id } = cliente;
@@ -52,7 +60,26 @@ class Clientes extends Component {
                           {cliente.empresa}
                         </div>
                         <div className="col-md-4 d-flex justify-content-end">
-                          <Mutation mutation={ELIMINAR_CLIENTE}>
+                          <Mutation 
+                              mutation={ELIMINAR_CLIENTE}
+                              onCompleted={(data) => {
+                                this.setState({
+                                  alerta:{
+                                    mostrar: true,
+                                    mensaje: data.eliminarCliente
+                                  }
+                                }, () =>{
+                                  setTimeout(()=>{
+                                    this.setState({
+                                      alerta:{
+                                        mostrar: false,
+                                        mensaje: ''
+                                      }
+                                    })
+                                  }, 2000)
+                                })
+                              }}
+                          >
                             {eliminarCliente => (
                               <button 
                                 type="button" 

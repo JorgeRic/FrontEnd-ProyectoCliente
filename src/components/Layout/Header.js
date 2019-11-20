@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Header = () => (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between d-flex mb-4">
@@ -15,12 +15,14 @@ const Header = () => (
             <div className="collapse navbar-collapse" id="navegacion">
                 <ul className="navbar-nav ml-auto text-right">
                     <li className="nav-item active">
-                      <Link to='/cliente/nuevo' className="btn btn-success">
-                        Nuevo Cliente
-                      </Link>
-                      {/* <Link to='/cliente/editar/:id' className="btn btn-success">
-                        Editar Cliente
-                      </Link> */}
+                        <Link to='/cliente/nuevo' className="btn btn-success mr-2">
+                          Nuevo Cliente
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to='/productos/nuevo' className="btn btn-success">
+                          Nuevo Producto
+                        </Link>
                     </li>
                 </ul>
             </div>

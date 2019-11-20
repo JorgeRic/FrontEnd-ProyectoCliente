@@ -24,3 +24,14 @@ query ConsultarCliente($id:ID){
     }
   }
 }`
+
+export const PRODUCTOS_QUERY = gql `
+{
+  getProductos{
+    id
+    nombre
+    precio
+    stock
+  }
+}
+`
