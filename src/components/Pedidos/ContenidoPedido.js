@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import Select from 'react-select'
 import Resumen from './Resumen'
+import GenerarPedido from './GenerarPedido'
+import Error from '../Alertas/Error'
 
 // import Animated from 'react-select/lib/animated'
 
@@ -51,9 +53,12 @@ class ContenidoPedido extends Component {
     })
   }
   render() {
+    const mensaje = (this.state.total < 0) ? <Error error = 
+    "Las cantidades no pueden ser negativas"/> : ""
     return (
       <Fragment>
         <h2 className="text-center mb-2">Seleccionar Articulos</h2>
+        {mensaje}
         <Select 
           options={this.props.productos} 
           //Permite añadir multiples campos
@@ -74,6 +79,11 @@ class ContenidoPedido extends Component {
         <p className="font-weight-bold float-right mt-3">Total:
           <span className="font-weigth-normal">{this.state.total} $</span>
         </p>
+        <GenerarPedido
+          productos = {this.state.productos}
+          total = {this.state.total}
+          idCliente = {this.props.id}
+        />
       </Fragment>
     )
   }

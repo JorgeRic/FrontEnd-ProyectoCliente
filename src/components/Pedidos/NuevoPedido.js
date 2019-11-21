@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import DatosCliente from './DatosCliente'
 import ContenidoPedido from './ContenidoPedido'
-import { Query, Mutation } from 'react-apollo'
+import { Query } from 'react-apollo'
 import { PRODUCTOS_QUERY } from'../../queries';
 
 class NuevoPedido extends Component {
@@ -21,7 +21,10 @@ class NuevoPedido extends Component {
               />
             </div>
             <div className="col-md-9">
-              <Query query={ PRODUCTOS_QUERY }>
+              <Query 
+                query={ PRODUCTOS_QUERY }
+                variables={{stock: true}}
+              >
                 {({ loading, error, data }) => {
                   if(loading) return (
                     <div className="sk-chase">

@@ -7,7 +7,7 @@ function Resumen(props) {
   // console.log(productos)
   return (
     <Fragment>
-      <h2 className="text-center my-5">resumen y Cantidades</h2>
+      <h2 className="text-center my-5">Resumen y Cantidades</h2>
       <table className="table">
         <thead className="bg-success text-light">
           <tr className="font-weight-bold">
