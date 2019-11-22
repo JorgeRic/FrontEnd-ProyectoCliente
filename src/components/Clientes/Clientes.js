@@ -6,6 +6,7 @@ import { ELIMINAR_CLIENTE } from '../../mutations'
 import Paginador from '../Paginador'
 import TodoOK from '../Alertas/TodoOK'
 
+
 class Clientes extends Component {
 
   limite = 5;
@@ -55,8 +56,8 @@ class Clientes extends Component {
                     <li key={cliente.id} className="list-group-item">
                       <div className="row justify-content-between align-items-center">
                         <div className="col-md-8 d-flex justify-content-between align-items-center">
-                          {cliente.nombre} {cliente.apellido} - 
-                          {cliente.empresa}
+                          {cliente.nombre} {cliente.apellido}
+                          
                         </div>
                         <div className="col-md-4 d-flex justify-content-end">
                           <Link 
@@ -64,6 +65,12 @@ class Clientes extends Component {
                             className="btn btn-warning d-block d-md-inline-block mr-2"
                           >
                             Nuevo Pedido
+                          </Link>
+                          <Link 
+                            to={`/pedidos/${id}`}
+                            className="btn btn-primary d-block d-md-inline-block mr-2"
+                          >
+                            Ver Pedidos
                           </Link>
                           <Mutation 
                               mutation={ELIMINAR_CLIENTE}
@@ -103,8 +110,11 @@ class Clientes extends Component {
                             }
 
                           </Mutation>
-                          <Link to={`/clientes/editar/${cliente.id}`} className="btn btn-success d-block d-md-inline-block">
+                          <Link to={`/clientes/editar/${cliente.id}`} className="btn btn-success d-block d-md-inline-block mr-2">
                             Editar Cliente
+                          </Link>
+                          <Link to={`/clientes/${cliente.id}`} className="btn btn-info d-block d-md-inline-block">
+                            Datos Cliente
                           </Link>
 
                         </div>

@@ -32,7 +32,7 @@ function DatosCliente({id}) {
                       <li className="border font-weight-bold p-2">Edad:
                         <span className="font-weight-normal"> {edad}</span>
                       </li> 
-                    </ul>
+                    </ul> 
                       ) 
                     }}
             
