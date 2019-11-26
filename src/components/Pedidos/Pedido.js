@@ -5,7 +5,8 @@ import { ACTUALIZAR_ESTADO } from '../../mutations'
 import ResumenProducto from './ResumenProducto'
 
 function Pedido(props) {
-  const pedido = props.pedido
+  const {pedido} = props
+  const {id} = pedido
   const fecha = new Date(Number(pedido.fecha))
   const estado = pedido.estado
   let clase;
@@ -31,7 +32,8 @@ function Pedido(props) {
                     value = {pedido.estado}
                     onChange={e=>{
                       const input = {
-                        id: pedido.id,
+                        id,
+                        pedido: pedido.pedido,
                         fecha: pedido.fecha,
                         total: pedido.total,
                         cliente: props.cliente,

@@ -11,7 +11,7 @@ function DatosCliente({id}) {
                 if(loading) return 'Cargando....';
                 if(error) return `Error: ${error.message}`
                 // console.log(data.getCliente, )
-                const { nombre, apellido, edad, emails, empresa, tipo} = data.getCliente
+                const { nombre, apellido, edad, empresa, tipo} = data.getCliente
                 return(
                     <ul className="list-unstyled my-5">
                       <li className="border font-weight-bold p-2">Nonmbre:
