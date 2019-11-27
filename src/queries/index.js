@@ -72,3 +72,16 @@ query topClientes{
   }
 }
 `
+//Usuarios
+export const USUARIO_ACTUAL = gql`
+query obtenerUsuario{
+  obtenerUsuario{
+    usuario
+    id
+    nombre
+    rol
+  }
+}
+
+`
+

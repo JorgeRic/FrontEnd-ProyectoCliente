@@ -7,7 +7,9 @@ import { withRouter } from 'react-router-dom'
 const initialState={
   usuario: '',
   password: '',
-  repetirPassword: ''
+  repetirPassword: '',
+  nombre: '',
+  rol: ''
 }
 class Registro extends Component {
   state = {
@@ -37,12 +39,12 @@ class Registro extends Component {
     })
   }
     validarForm = () => {
-      const {usuario, password, repetirPassword} = this.state;
-      const noValido = !usuario || !password || password !==repetirPassword
+      const {usuario, password, repetirPassword, nombre, rol} = this.state;
+      const noValido = !usuario || !password || password !==repetirPassword || !nombre || !rol;
       return noValido
     }
   render() {
-    const {usuario, password, repetirPassword} = this.state;
+    const {usuario, password, nombre, rol, repetirPassword} = this.state;
     return (
       <Fragment>
         <h2 className="text-center mb-5">Nuevo Usuario</h2>
@@ -50,7 +52,7 @@ class Registro extends Component {
         <div className="row  justify-content-center">
           <Mutation
             mutation={NUEVO_USUARIO}
-            variables={{usuario, password}}
+            variables={{usuario, password, nombre, rol}}
           >
             {(crearUsuario, {loading, error, data})=> {
               // console.log(data)
@@ -67,31 +69,64 @@ class Registro extends Component {
                     type="text" 
                     name="usuario" 
                     className="form-control" 
-                    placeholder="Nombre Usuario" 
+                    placeholder="Usuario" 
                     value={usuario}
                 />
+                <small className="form-text text-muted">
+                  Sin espacios y sin caracteres especiales
+                </small>
             </div>
             <div className="form-group">
-                <label>Password</label>
+                <label>Nombre Completo</label>
                 <input 
                     onChange={this.actualizarState}
-                    type="password" 
-                    name="password" 
+                    type="text" 
+                    name="nombre" 
                     className="form-control" 
-                    placeholder="Password"
-                    value={password}
-                    />
-            </div>
-            <div className="form-group">
-                <label>Repetir Password</label>
-                <input 
-                    onChange={this.actualizarState}
-                    type="password" 
-                    name="repetirPassword" 
-                    className="form-control" 
-                    placeholder="Repetir Password" 
-                    value={repetirPassword}
+                    placeholder="Nombre Usuario" 
+                    value={nombre}
                 />
+                <small className="form-text text-muted">
+                  Ingrese su nombre y apellidos
+                </small>
+            </div>
+            <div className="form-row">
+              <div className="form-group col-md-6">
+                  <label>Password</label>
+                  <input 
+                      onChange={this.actualizarState}
+                      type="password" 
+                      name="password" 
+                      className="form-control" 
+                      placeholder="Password"
+                      value={password}
+                      />
+              </div>
+              <div className="form-group">
+                  <label>Repetir Password</label>
+                  <input 
+                      onChange={this.actualizarState}
+                      type="password" 
+                      name="repetirPassword" 
+                      className="form-control" 
+                      placeholder="Repetir Password" 
+                      value={repetirPassword}
+                  />
+              </div>
+            </div>
+            <div className="form-group">
+              <label>Rol:</label>
+              <select 
+                className="form-control"
+                value="{rol}"
+                name="rol"
+                onChange={this.actualizarState}
+
+              >
+                <option value="">Elegir...</option>
+                <option value="Administrador">Administrador</option>
+                <option value="Vendedor">Vendedor</option>
+              </select>
             </div>
 
             <button 

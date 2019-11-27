@@ -5,7 +5,7 @@ import { ELIMINAR_PRODUCTO } from'../../mutations';
 import { PRODUCTOS_QUERY } from '../../queries'
 import TodoOK from '../Alertas/TodoOK'
 import Paginador from '../Paginador'
-import { NoUnusedFragmentsRule } from 'graphql';
+
 
 class Productos extends Component {
   limite = 5;

@@ -14,26 +14,30 @@ class Login extends Component {
       ...initialState
   }
 
-    actualizarState = e => {
-        const { name, value } = e.target;
-        this.setState({
-          [name] : value
-      })
-    }
+  actualizarState = e => {
+      const { name, value } = e.target;
+      this.setState({
+        [name] : value
+    })
+  }
 
   limpiarState = () => {
         this.setState({...initialState});
   }
 
-  iniciarSesion = (e, autentificarUsuario) => {
+  iniciarSesion = (e, usuarioAutentificar) => {
       e.preventDefault();
-      autentificarUsuario().then(async({data})=> {
+      usuarioAutentificar().then(async({data})=> {
+        // console.log(data.autentificarUsuario.token)
         //Almacenamos información en le local storage
         localStorage.setItem('token', data.autentificarUsuario.token)
         //ejecutar el query cuando se inicie sesion
-
+        await this.props.refetch()
         //limpiar state
         this.limpiarState()
+        setTimeout(()=>{
+          this.props.history.push('/panel')
+        }, 2000)
       })
     }
 
@@ -56,10 +60,10 @@ class Login extends Component {
               mutation={ AUTENTIFICAR_USUARIO }
               variables={{usuario, password}}    
           >
-          {( autentificarUsuario, {loading, error, data}) => {
+          {( usuarioAutentificar, {loading, error, data}) => {
               return (
                   <form 
-                      onSubmit={ e => this.iniciarSesion(e, autentificarUsuario) } 
+                      onSubmit={ e => this.iniciarSesion(e, usuarioAutentificar) } 
                       className="col-md-8"
                   >
                   {error && <Error error={error} />}
